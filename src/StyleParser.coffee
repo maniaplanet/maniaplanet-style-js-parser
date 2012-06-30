@@ -24,8 +24,17 @@ class StyleParser
             style = style ^ Style.ITALIC
           when 'o'
             style = style ^ Style.BOLD
+          when 's'
+            style = style ^ Style.SHADOWED
+          when 'w'
+            style = style | Style.WIDE
+            style = style & ~Style.NARROW
+          when 'n'
+            style = style | Style.NARROW
+            style = style & ~Style.WIDE
+          when 'm'
+            style = style & ~(Style.NARROW | Style.WIDE)
           # Other may come in the future       :)
-
         if style isnt token.style
           if text?.length
             tokens.push nextToken
