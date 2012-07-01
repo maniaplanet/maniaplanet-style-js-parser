@@ -35,6 +35,12 @@ class StyleParser
           when 'm'
             style = style & ~(Style.NARROW | Style.WIDE)
           # Other may come in the future       :)
+          when '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+            hex_color = (token + '').replace(/[^a-f0-9]/gi, ''); # parse hex only
+            style = style & ~0xfff;
+            style = style | (Style.COLORED | (parseInt(hex_color, 16) & 0xfff))
+          when '$'
+            nextToken.text = '$'
         if style isnt token.style
           if text?.length
             tokens.push nextToken
