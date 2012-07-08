@@ -13,6 +13,8 @@ class StyleParser
 
     tokens = []
 
+    styleStack = []
+
     nextToken = new Token
 
     for idx, token of rawTokens
@@ -34,6 +36,11 @@ class StyleParser
             style = style & ~Style.WIDE
           when 'm'
             style = style & ~(Style.NARROW | Style.WIDE)
+          when '<'
+            styleStack.push style
+            style = null
+          when '>'
+            style = styleStack.pop()
           # Other may come in the future       :)
           when '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
             hex_color = (token + '').replace(/[^a-f0-9]/gi, ''); # parse hex only
@@ -58,4 +65,4 @@ class StyleParser
 
 
 
-console.log StyleParser.toHTML("Test $f20woo $olol $iyay")
+console.log StyleParser.toHTML("Test $o $< no style $> style back")
