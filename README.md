@@ -2,7 +2,7 @@
 
 JavaScript port of ManiaLib's PHP style parser.
 
-It supports : `$i`, `$o`, `$s`, `$w`, `$n`,
+It supports : `$i`, `$o`, `$s`, `$w`, `$n`, `$<`, `$>` and colors (`$f20` for instance). 
 
 
 ##Build
