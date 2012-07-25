@@ -6,6 +6,8 @@ appFiles  = [
   'Color',
 	'Style',
 	'Token',
+  'LinkToken',
+  'LinkTokenEnd',
 	'StyleParser'
 ]
 
