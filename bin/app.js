@@ -61,7 +61,7 @@
       if (this.style) {
         if (this.style & Style.COLORED) {
           color = parseInt(Color.rgb12to24(this.style & 0xfff), 10).toString(16);
-          styleStack.push('color: #' + color);
+          styleStack.push('color: #' + color + ';');
         }
         if (this.style & Style.ITALIC) {
           styleStack.push('font-style:italic;');
@@ -169,7 +169,6 @@
                 link = matches[1];
               }
               if (typeof linkToken !== "undefined" && linkToken !== null) {
-                console.log("Yep linkToken");
                 if (text != null ? text.length : void 0) {
                   tokens.push(nextToken);
                   nextToken = new Token(style);
@@ -181,7 +180,6 @@
                 tokens.push(new LinkTokenEnd);
                 linkToken = null;
               } else {
-                console.log("No link");
                 if (text != null ? text.length : void 0) {
                   tokens.push(nextToken);
                   nextToken = new Token(style);
@@ -254,7 +252,5 @@
     return StyleParser;
 
   })();
-
-  console.log(StyleParser.toHTML("Test $l[http://google.fr]blah$l"));
 
 }).call(this);

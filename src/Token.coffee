@@ -8,7 +8,7 @@ class Token
       if @style & Style.COLORED
         # Converting string to hex
         color = parseInt(Color.rgb12to24(@style & 0xfff), 10).toString(16)
-        styleStack.push 'color: #' + color
+        styleStack.push 'color: #' + color + ';'
       if @style & Style.ITALIC
         styleStack.push 'font-style:italic;'
       if @style & Style.BOLD
