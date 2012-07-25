@@ -77,7 +77,7 @@
         } else if (this.style & Style.NARROW) {
           styleStack.push('letter-spacing:-.1em;font-size:95%;');
         }
-        return '<span class="' + styleStack.join(' ') + '">' + this.text + '</span>';
+        return '<span style="' + styleStack.join(' ') + '">' + this.text + '</span>';
       } else {
         return this.text;
       }

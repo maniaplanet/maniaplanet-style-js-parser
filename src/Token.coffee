@@ -19,6 +19,6 @@ class Token
         styleStack.push 'letter-spacing:.1em;font-size:105%;'
       else if @style & Style.NARROW
         styleStack.push 'letter-spacing:-.1em;font-size:95%;'
-      return '<span class="' + styleStack.join(' ') + '">' + @text + '</span>'
+      return '<span style="' + styleStack.join(' ') + '">' + @text + '</span>'
     else
       return @text
