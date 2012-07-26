@@ -8,6 +8,10 @@ class Token
       if @style & Style.COLORED
         # Converting string to hex
         color = parseInt(Color.rgb12to24(@style & 0xfff), 10).toString(16)
+        if (color.length == 2)
+          color = '0000' + color
+        else if (color.length == 4)
+          color = '00' + color
         styleStack.push 'color: #' + color + ';'
       if @style & Style.ITALIC
         styleStack.push 'font-style:italic;'
