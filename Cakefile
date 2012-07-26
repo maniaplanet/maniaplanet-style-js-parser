@@ -8,7 +8,7 @@ appFiles  = [
 	'Token',
   'LinkToken',
   'LinkTokenEnd',
-	'StyleParser'
+	'Parser'
 ]
 
 task 'build', 'Build single application file from source files', ->
@@ -19,11 +19,11 @@ task 'build', 'Build single application file from source files', ->
       appContents[index] = fileContents
       process() if --remaining is 0
   process = ->
-    fs.writeFile 'bin/app.coffee', appContents.join('\n\n'), 'utf8', (err) ->
+    fs.writeFile 'bin/mp-style-parser.coffee', appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
-      exec 'coffee --compile bin/app.coffee', (err, stdout, stderr) ->
+      exec 'coffee --compile bin/mp-style-parser.coffee', (err, stdout, stderr) ->
         throw err if err
         console.log stdout + stderr
-        fs.unlink 'bin/app.coffee', (err) ->
+        fs.unlink 'bin/mp-style-parser.coffee', (err) ->
           throw err if err
           console.log 'Done.'

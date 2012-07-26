@@ -1,5 +1,8 @@
-class StyleParser
-  constructor: () ->
+MPStyle = exports? and @ or @MPStyle = {}
+
+class MPStyle.Parser
+  constructor: (text) ->
+    return @toHTML text
 
   @toHTML: (text) ->
     return (tokens.toHTML() for tokens in @parse(text)).join('')
