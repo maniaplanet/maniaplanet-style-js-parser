@@ -1,5 +1,5 @@
 class Token
-  constructor: (@style, @text) ->
+  constructor: (@style = 0, @text = '') ->
 
 
   toHTML: ->

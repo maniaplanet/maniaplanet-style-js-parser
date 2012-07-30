@@ -87,5 +87,3 @@ class MPStyle.Parser
       tokens.push nextToken
 
     return tokens
-    
-console.log MPStyle.Parser.toHTML('$00f test')

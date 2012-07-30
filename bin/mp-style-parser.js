@@ -51,8 +51,8 @@
   Token = (function() {
 
     function Token(style, text) {
-      this.style = style;
-      this.text = text;
+      this.style = style != null ? style : 0;
+      this.text = text != null ? text : '';
     }
 
     Token.prototype.toHTML = function() {
@@ -261,7 +261,5 @@
     return Parser;
 
   })();
-
-  console.log(MPStyle.Parser.toHTML('$00f test'));
 
 }).call(this);
