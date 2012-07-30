@@ -11,6 +11,7 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script src="https://raw.github.com/magnetik/maniaplanet-style-js-parser/master/bin/mp-style-parser.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -32,23 +33,24 @@
 
 <p>JavaScript port of ManiaLib's PHP style parser.</p>
 
-<p>It supports : <code>$i</code>, <code>$o</code>, <code>$s</code>, <code>$w</code>, <code>$m</code>, <code>$g</code>, <code>$n</code>, <code>$&lt;</code>, <code>$&gt;</code>, $l (for links like <code>$l[http://magnetik.org]magnetik$l</code>) and colors (<code>$f20</code> for instance). </p>
+<p>It supports : <code>$i</code>, <code>$o</code>, <code>$s</code>, <code>$w</code>, <code>$m</code>, <code>$g</code>, <code>$n</code>, <code>$&lt;</code>, <code>$&gt;</code>, <code>$l</code> (for links like <code>$l[http://magnetik.org]magnetik$l</code>) and colors (<code>$f20</code> for instance). </p>
+
+<p>For instance : <code>$f20Some red text,$z$o a little bold, $z$l[http://magnetik.org]and a link$l</code> will be transformed into : <span id="result"></span></p>
+
+<script type="text/javascript">
+document.getElementById('result').innerHTML = MPStyle.Parser.toHTML("$f20Some red text,$z$o a little bold, $z$l[http://magnetik.org]and a link$l");
+</script>
 
 <h2>Build</h2>
 
-<h3>Requirements</h3>
-
-<p>As compiled file are JavaScript, you can use it with any JavaScript interpreter. It's tested with latest <a href="http://www.nodejs.org">node.js</a>.</p>
-
 <h3>Installation</h3>
 
-<p>A CakeFile is used in order to generate all required files.</p>
-
-<p>Just type <code>cake build</code> and the file <code>build/app.js</code> will be generated. You can use it in any project.</p>
+<p>Please check the readme on the <a href="https://github.com/magnetik/maniaplanet-style-js-parser#maniaplanet-style-parser">project's home on github</a>.</p>
 
 <h2>Usage</h2>
 
-<p>In your javascript application just do <code>StyleParse.toHTML('$o foo $i bar');</code></p>
+<p>In you web applications, include the script via : <code>&lt;script src="https://raw.github.com/magnetik/maniaplanet-style-js-parser/master/bin/mp-style-parser.js"&gt;&lt;/script&gt;</code></p>
+<p>Then you can use it by doing : <code>MPStyle.Parser.toHTML('$o foo $i bar');</code></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/magnetik">magnetik</a></p>
