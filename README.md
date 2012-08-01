@@ -23,3 +23,6 @@ Just type `cake build` and the file `build/mp-style-parser.js` will be generated
 In your javascript application just do `MPStyle.Parser.toHTML('$o foo $i bar');`
 
 In web projects : `<script src="https://raw.github.com/magnetik/maniaplanet-style-js-parser/master/bin/mp-style-parser.js"></script>`
+
+##License
+

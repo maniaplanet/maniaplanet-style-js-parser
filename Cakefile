@@ -2,13 +2,13 @@ fs     = require 'fs'
 {exec} = require 'child_process'
 
 appFiles  = [
-  # omit src/ and .coffee to make the below lines a little shorter
+  'Header',
   'Color',
-	'Style',
-	'Token',
+  'Style',
+  'Token',
   'LinkToken',
   'LinkTokenEnd',
-	'Parser'
+  'Parser'
 ]
 
 task 'build', 'Build single application file from source files', ->
