@@ -11,6 +11,7 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="https://raw.github.com/magnetik/maniaplanet-style-js-parser/master/bin/mp-style-parser.js"></script>
   </head>
   <body>
@@ -35,10 +36,18 @@
 
 <p>It supports : <code>$i</code>, <code>$o</code>, <code>$s</code>, <code>$w</code>, <code>$m</code>, <code>$g</code>, <code>$n</code>, <code>$&lt;</code>, <code>$&gt;</code>, <code>$l</code> (for links like <code>$l[http://magnetik.org]magnetik$l</code>) and colors (<code>$f20</code> for instance). </p>
 
-<p>For instance : <code>$f20Some red text,$z$o a little bold, $z$l[http://magnetik.org]and a link$l</code> will be transformed into : <span id="result"></span></p>
+<div>For instance : <input style="width: 100%" id="input" type="input" value="$f20Some red text,$z$o a little bold, $z$l[http://magnetik.org]and a link$l"/><br />will be transformed into:<br /> <div style="width: 100%; border-style:solid; padding:2px; border-width:1px;" id="result"></div></div>
 
 <script type="text/javascript">
-document.getElementById('result').innerHTML = MPStyle.Parser.toHTML("$f20Some red text,$z$o a little bold, $z$l[http://magnetik.org]and a link$l");
+function transform() {
+	$('#result').html(MPStyle.Parser.toHTML($('#input').val()));
+}
+$(function() {
+	transform();
+	$('#input').change(function() { transform(); });
+	$('#input').keyup(function() { transform(); });
+});
+
 </script>
 
 <h2>Build</h2>
