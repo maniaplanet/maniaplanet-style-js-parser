@@ -11,7 +11,7 @@ class MPStyle.Parser
   @parse: (text) ->
     style = 0
 
-    pattern = /(\$(?:[0-9a-f][^\$]{0,2}|[lhp](?:\[.*?\])?|.))/
+    pattern = /(\$(?:[0-9a-f][^\$]{0,2}|[lhp](?:\[.*?\])?|.))/i
     rawTokens = text.split(pattern)
 
     tokens = []
@@ -24,7 +24,7 @@ class MPStyle.Parser
       code = token[0]
 
       if (code is '$')
-        switch token[1]
+        switch tok
           when 'i'
             style = style ^ Style.ITALIC
           when 'o'

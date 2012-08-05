@@ -163,7 +163,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Parser.parse = function(text) {
       var code, hex_color, idx, link, linkToken, matches, nextToken, pattern, rawTokens, style, styleStack, token, tokens, _ref, _ref1;
       style = 0;
-      pattern = /(\$(?:[0-9a-f][^\$]{0,2}|[lhp](?:\[.*?\])?|.))/;
+      pattern = /(\$(?:[0-9a-f][^\$]{0,2}|[lhp](?:\[.*?\])?|.))/i;
       rawTokens = text.split(pattern);
       tokens = [];
       nextToken = new Token;
@@ -172,7 +172,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         token = rawTokens[idx];
         code = token[0];
         if (code === '$') {
-          switch (token[1]) {
+          switch (tok) {
             case 'i':
               style = style ^ Style.ITALIC;
               break;
