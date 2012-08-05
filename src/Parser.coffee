@@ -70,7 +70,7 @@ class MPStyle.Parser
           when '>'
             style = styleStack.pop()
           when '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-            hex_color = (token + '').replace(/[^a-f0-9]/gi, ''); # parse hex only
+            hex_color = (token + '').replace(/[^a-f0-9]/gi, '0'); # parse hex only
             style = style & ~0xfff;
             style = style | Style.COLORED | (parseInt(hex_color, 16) & 0xfff)
           when '$'

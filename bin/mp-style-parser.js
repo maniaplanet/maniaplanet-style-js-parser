@@ -254,7 +254,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             case 'd':
             case 'e':
             case 'f':
-              hex_color = (token + '').replace(/[^a-f0-9]/gi, '');
+              hex_color = (token + '').replace(/[^a-f0-9]/gi, '0');
               style = style & ~0xfff;
               style = style | Style.COLORED | (parseInt(hex_color, 16) & 0xfff);
               break;
