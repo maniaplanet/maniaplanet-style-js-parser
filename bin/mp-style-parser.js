@@ -233,7 +233,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               break;
             case '<':
               styleStack.push(style);
-              style = null;
               break;
             case '>':
               style = styleStack.pop();

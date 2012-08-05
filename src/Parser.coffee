@@ -66,7 +66,6 @@ class MPStyle.Parser
             style = style & (styleStack.length == 0 ? ~0x1fff : (stylesStack[stylesStack.length -1] | ~0x1fff))
           when '<'
             styleStack.push style
-            style = null
           when '>'
             style = styleStack.pop()
           when '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
