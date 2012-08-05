@@ -24,6 +24,7 @@ class MPStyle.Parser
       code = token[0]
 
       if (code is '$')
+        tok = token[1].toLowerCase()
         switch tok
           when 'i'
             style = style ^ Style.ITALIC
