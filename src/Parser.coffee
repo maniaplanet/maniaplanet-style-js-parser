@@ -46,11 +46,13 @@ class MPStyle.Parser
               if text?.length
                 tokens.push nextToken
                 nextToken = new Token(style)
-              else if tokens[tokens.length - 1] == linkToken
+              else if tokens[tokens.length - 1] is linkToken
                 delete(tokens[tokens.length - 1])
                 linkToken = null
                 break
               tokens.push(new LinkTokenEnd)
+              if (link)
+                nextToken.text = link
               linkToken = null
             else
               if text?.length
