@@ -18,6 +18,10 @@ javascripts = {
 }
 
 task 'build', 'Build applications discribred in javascripts var', ->
+  try
+    fs.mkdirSync 'bin'
+  catch err
+    #do nothing
   for javascript, sources of javascripts
     appContents = new Array
     console.log 'Processing ' + javascript

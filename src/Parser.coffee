@@ -7,24 +7,42 @@ class MPStyle.Parser
   @toHTML: (text) ->
     return (tokens.toHTML() for tokens in @parse(text)).join('')
 
-
   @parse: (text) ->
+    isCode = false
+    isQuickLink = false
+    isPrettyLink = false
+
     style = 0
-
-    pattern = /(\$(?:[0-9a-f][^\$]{0,2}|[lhp](?:\[.*?\])?|.))/i
-    rawTokens = text.split(pattern)
-
     tokens = []
-
-    nextToken = new Token
-
     styleStack = []
+    nextToken = new Token
+    nextLinkToken = null
+    linkLevel = 0
 
-    for idx, token of rawTokens
-      code = token[0]
+    endLink = () ->
+      if nextToken.text isnt ''
+        tokens.push nextToken
+        nextToken = new Token style
+      else if tokens[tokens.length - 1] is nextLinkToken
+        delete(tokens[tokens.length - 1])
+      else
+        tokens.push new LinkTokenEnd
 
-      if (code is '$')
-        tok = token[1].toLowerCase()
+      nextLinkToken = null
+      isQuickLink = false
+      isPrettyLink = false
+
+    endText = (force = false) ->
+      if force or style != nextToken.style
+        if nextToken.text isnt ''
+          tokens.push nextToken
+          nextToken = new Token(style)
+        else
+          nextToken.style = style
+
+    for char, index in text.split ''
+      if isCode is true
+        tok = char.toLowerCase()
         switch tok
           when 'i'
             style = style ^ Style.ITALIC
@@ -39,29 +57,20 @@ class MPStyle.Parser
             style = style | Style.NARROW
             style = style & ~Style.WIDE
           when 'l', 'h', 'p'
-            matches = token.match(new RegExp(/\[(.*?)\]/i))
-            if (matches)
-              link = matches[1]
-            if linkToken?
-              if text?.length
-                tokens.push nextToken
-                nextToken = new Token(style)
-              else if tokens[tokens.length - 1] is linkToken
-                delete(tokens[tokens.length - 1])
-                linkToken = null
-                break
-              tokens.push(new LinkTokenEnd)
-              if (link)
-                nextToken.text = link
-              linkToken = null
+            if nextLinkToken?
+              endLink()
             else
-              if text?.length
-                tokens.push nextToken
-                nextToken = new Token(style)
-              linkToken = new LinkToken(link)
-              tokens.push linkToken
+              endText true
+              nextLinkToken = new LinkToken
+              tokens.push nextLinkToken
+              isQuickLink = true
+              isPrettyLink = true
+              linkLevel = styleStack.length
+
           when 'z'
-            style = (styleStack.length == 0 ? 0 : styleStack[styleStack.length - 1])
+            style = (styleStack.length is 0 ? 0 : styleStack[styleStack.length - 1])
+            if nextLinkToken?
+              endLink()
           when 'm'
             style = style & ~(Style.NARROW | Style.WIDE)
           when 'g'
@@ -69,23 +78,55 @@ class MPStyle.Parser
           when '<'
             styleStack.push style
           when '>'
-            style = styleStack.pop()
-          when '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-            hex_color = (token + '').replace(/[^a-f0-9]/gi, '0'); # parse hex only
-            style = style & ~0xfff;
-            style = style | Style.COLORED | (parseInt(hex_color, 16) & 0xfff)
+            if styleStack.length isnt 0
+              style = styleStack.pop()
+              if nextLinkToken? and linkLevel > styleStack.length
+                endLink()
           when '$'
-            nextToken.text = '$'
-        if style isnt token.style
-          if text?.length
-            tokens.push nextToken
-            nextToken = new Token(style)
+            nextToken.text += '$'
           else
-            nextToken.style = style
-      else
-        nextToken.text = token
+            #This must be a color code, verifying it
+            if /[a-f0-9]/i.test()
+              color = char
+        endText()
+        isCode = false
 
-    if text?.length
+      #We detect a code start
+      else if char is '$'
+        isCode = true
+        if isQuickLink and isPrettyLink
+          isPrettyLink = false
+
+      #If we had detected a color code after a code start
+      else if color?
+        color += char.replace(/[^a-f0-9]/gi, '0');
+        if color.length is 3
+          style = style & ~0xfff;
+          style = style | Style.COLORED | (parseInt(color, 16) & 0xfff)
+          endText() #force end string
+          color = null
+
+      else if isQuickLink and isPrettyLink
+        if char is '['
+          isQuickLink = false
+        else
+          isPrettyLink = false
+          nextToken.text += char
+          nextLinkToken.link += char
+
+      else if isPrettyLink
+        if char is ']'
+          isPrettyLink = false
+        else
+          nextLinkToken.link += char
+
+      else
+        nextToken.text += char
+        if isQuickLink
+          nextLinkToken.link += char
+
+    if nextToken.text isnt ''
       tokens.push nextToken
 
+    console.log tokens
     return tokens
