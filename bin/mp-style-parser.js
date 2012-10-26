@@ -163,7 +163,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     };
 
     Parser.parse = function(text) {
-      var char, color, endLink, endText, index, isCode, isPrettyLink, isQuickLink, linkLevel, nextLinkToken, nextToken, style, styleStack, tok, tokens, _i, _len, _ref, _ref1, _ref2;
+      var c, color, endLink, endText, index, isCode, isPrettyLink, isQuickLink, linkLevel, nextLinkToken, nextToken, style, styleStack, tok, tokens, _i, _len, _ref, _ref1, _ref2;
       isCode = false;
       isQuickLink = false;
       isPrettyLink = false;
@@ -201,9 +201,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       };
       _ref = text.split('');
       for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
-        char = _ref[index];
+        c = _ref[index];
         if (isCode === true) {
-          tok = char.toLowerCase();
+          tok = c.toLowerCase();
           switch (tok) {
             case 'i':
               style = style ^ Style.ITALIC;
@@ -268,18 +268,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               break;
             default:
               if (/[a-f0-9]/i.test()) {
-                color = char;
+                color = c;
               }
           }
           endText();
           isCode = false;
-        } else if (char === '$') {
+        } else if (c === '$') {
           isCode = true;
           if (isQuickLink && isPrettyLink) {
             isPrettyLink = false;
           }
         } else if (color != null) {
-          color += char.replace(/[^a-f0-9]/gi, '0');
+          color += c.replace(/[^a-f0-9]/gi, '0');
           if (color.length === 3) {
             style = style & ~0xfff;
             style = style | Style.COLORED | (parseInt(color, 16) & 0xfff);
@@ -287,23 +287,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             color = null;
           }
         } else if (isQuickLink && isPrettyLink) {
-          if (char === '[') {
+          if (c === '[') {
             isQuickLink = false;
           } else {
             isPrettyLink = false;
-            nextToken.text += char;
-            nextLinkToken.link += char;
+            nextToken.text += c;
+            nextLinkToken.link += c;
           }
         } else if (isPrettyLink) {
-          if (char === ']') {
+          if (c === ']') {
             isPrettyLink = false;
           } else {
-            nextLinkToken.link += char;
+            nextLinkToken.link += c;
           }
         } else {
-          nextToken.text += char;
+          nextToken.text += c;
           if (isQuickLink) {
-            nextLinkToken.link += char;
+            nextLinkToken.link += c;
           }
         }
       }
