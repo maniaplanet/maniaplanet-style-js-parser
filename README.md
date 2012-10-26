@@ -16,13 +16,13 @@ As compiled file are JavaScript, you can use it with any JavaScript interpreter.
 
 A CakeFile is used in order to generate all required files.
 
-Just type `cake build` and the file `build/mp-style-parser.js` will be generated. You can use it in any project.
+Just type `cake build` and the file `bin/mp-style-parser.js` will be generated. You can use it in any project.
 
 ##Usage
 
 In your javascript application just do `MPStyle.Parser.toHTML('$o foo $i bar');`
 
-In web projects : `<script src="https://raw.github.com/magnetik/maniaplanet-style-js-parser/master/bin/mp-style-parser.js"></script>`
+In web projects : `<script src="http://magnetik.github.com/maniaplanet-style-js-parser/bin/mp-style-parser.js"></script>`
 
 ##License
 
