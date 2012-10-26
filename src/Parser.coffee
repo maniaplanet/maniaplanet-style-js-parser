@@ -40,9 +40,9 @@ class MPStyle.Parser
         else
           nextToken.style = style
 
-    for char, index in text.split ''
+    for c, index in text.split ''
       if isCode is true
-        tok = char.toLowerCase()
+        tok = c.toLowerCase()
         switch tok
           when 'i'
             style = style ^ Style.ITALIC
@@ -87,19 +87,19 @@ class MPStyle.Parser
           else
             #This must be a color code, verifying it
             if /[a-f0-9]/i.test()
-              color = char
+              color = c
         endText()
         isCode = false
 
       #We detect a code start
-      else if char is '$'
+      else if c is '$'
         isCode = true
         if isQuickLink and isPrettyLink
           isPrettyLink = false
 
       #If we had detected a color code after a code start
       else if color?
-        color += char.replace(/[^a-f0-9]/gi, '0');
+        color += c.replace(/[^a-f0-9]/gi, '0');
         if color.length is 3
           style = style & ~0xfff;
           style = style | Style.COLORED | (parseInt(color, 16) & 0xfff)
@@ -107,23 +107,23 @@ class MPStyle.Parser
           color = null
 
       else if isQuickLink and isPrettyLink
-        if char is '['
+        if c is '['
           isQuickLink = false
         else
           isPrettyLink = false
-          nextToken.text += char
-          nextLinkToken.link += char
+          nextToken.text += c
+          nextLinkToken.link += c
 
       else if isPrettyLink
-        if char is ']'
+        if c is ']'
           isPrettyLink = false
         else
-          nextLinkToken.link += char
+          nextLinkToken.link += c
 
       else
-        nextToken.text += char
+        nextToken.text += c
         if isQuickLink
-          nextLinkToken.link += char
+          nextLinkToken.link += c
 
     if nextToken.text isnt ''
       tokens.push nextToken
