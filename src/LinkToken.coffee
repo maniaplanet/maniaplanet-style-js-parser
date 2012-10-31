@@ -1,5 +1,5 @@
 class LinkToken
-  constructor: (@link) ->
+  constructor: (@link = '') ->
 
   toHTML: ->
   	return '<a href="' + @link + '">'
