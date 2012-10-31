@@ -310,7 +310,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       if (nextToken.text !== '') {
         tokens.push(nextToken);
       }
-      console.log(tokens);
       return tokens;
     };
 
