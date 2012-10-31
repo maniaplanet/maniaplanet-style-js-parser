@@ -128,5 +128,4 @@ class MPStyle.Parser
     if nextToken.text isnt ''
       tokens.push nextToken
 
-    console.log tokens
     return tokens
