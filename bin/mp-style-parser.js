@@ -117,7 +117,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   LinkToken = (function() {
 
     function LinkToken(link) {
-      this.link = link;
+      this.link = link != null ? link : '';
     }
 
     LinkToken.prototype.toHTML = function() {
