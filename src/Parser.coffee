@@ -23,6 +23,7 @@ class MPStyle.Parser
       if nextToken.text isnt ''
         tokens.push nextToken
         nextToken = new Token style
+        tokens.push new LinkTokenEnd
       else if tokens[tokens.length - 1] is nextLinkToken
         delete(tokens[tokens.length - 1])
       else
@@ -70,7 +71,8 @@ class MPStyle.Parser
           when 'z'
             style = (styleStack.length is 0 ? 0 : styleStack[styleStack.length - 1])
             if nextLinkToken?
-              endLink()
+              console.log 'close link'
+              endLink(true)
           when 'm'
             style = style & ~(Style.NARROW | Style.WIDE)
           when 'g'
@@ -129,3 +131,6 @@ class MPStyle.Parser
       tokens.push nextToken
 
     return tokens
+
+
+console.log(MPStyle.Parser.toHTML('$lhttp://google.fr$zlol'))
