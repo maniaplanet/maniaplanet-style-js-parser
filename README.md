@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/maniaplanet/maniaplanet-style-js-parser.svg?branch=master)](https://travis-ci.org/maniaplanet/maniaplanet-style-js-parser)
+
 #ManiaPlanet Style parser
 
 JavaScript port of ManiaLib's PHP style parser.
