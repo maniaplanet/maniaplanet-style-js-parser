@@ -3,3 +3,5 @@ class LinkTokenEnd
 
   toHTML: ->
   	return '</a>'
+
+exports.LinkTokenEnd = LinkTokenEnd

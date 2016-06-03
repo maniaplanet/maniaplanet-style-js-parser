@@ -15,3 +15,5 @@ class Color
   # WCAG 2.0 level AAA minimum ratio:  7:1
   @contrastRatio: (rgb1, rgb2) ->
   	return (@rgbToLuminance(@hex2rgb(rgb1)) + 0.05) / (@rgbToLuminance(@hex2rgb(rgb2)) + 0.05)
+
+exports.Color = Color

@@ -1,44 +1,35 @@
 fs     = require 'fs'
 {exec} = require 'child_process'
+browserify  = require 'browserify'
+coffeeify  = require 'coffeeify'
 
-javascripts = {
-  'mp-style-parser' : [
-    'Header',
-    'Color',
-    'Style',
-    'Token',
-    'LinkToken',
-    'LinkTokenEnd',
-    'Parser'
-  ],
-  'mp-style-parser-plugin' : [
-    'Header',
-    'Plugin'
-  ]
-}
+# Runs browserify
+execute = ->
+  # equal of command line $ "browserify --debug -t coffeeify ./src/main.coffee > bundle.js "
+  b = browserify()
+  b.add './src/main.coffee'
+  b.transform coffeeify
+  b.bundle
+    debug: true
+    transform: coffeeify
+  , (err, result) ->
+    if not err
+      fs.writeFile "example/bundle.js", result, (err) ->
+        if not err
+          console.log "✔ browserify complete"
+        else
+          console.error "browserify failed: " + err
+    else
+      console.error "failed " + err
 
-task 'build', 'Build applications discribred in javascripts var', ->
-  try
-    fs.mkdirSync 'bin'
-  catch err
-    #do nothing
-  for javascript, sources of javascripts
-    appContents = new Array
-    console.log 'Processing ' + javascript
-    for source, index in sources then do (source, index) ->
-      console.log '  `- ' + source
-      appContents[index] = fs.readFileSync "src/#{source}.coffee", 'utf8'
-    file = 'bin/' + javascript + '.coffee'
-    console.log 'writing coffee file:' + file
-    fs.writeFileSync file, appContents.join('\n\n'), 'utf8', (err) ->
-      throw err if err
-      console.log 'Compiling ' + javascript
-    compileAndDelete javascript
-    
-compileAndDelete = (javascript) ->
-  exec 'coffee --compile bin/' + javascript + '.coffee', (err, stdout, stderr) ->
-    console.log stdout + stderr
-    throw err if err
-    fs.unlink 'bin/' + javascript + '.coffee', (err) ->
-      throw err if err
-      console.log 'Done.'
+task 'browserify', 'Browserify', (options) ->
+  execute()
+
+# `title` Notification title
+# `message` Notification message
+notify = (title, message) ->
+  console.log "#{title}: #{message}"
+  growl message, {title:title}
+	  
+task 'test', 'Run tests', ->
+  exec 'mocha --compilers coffee:coffee-script/register'

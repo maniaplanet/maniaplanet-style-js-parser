@@ -3,3 +3,5 @@ class LinkToken
 
   toHTML: ->
   	return '<a href="' + @link + '">'
+	
+exports.LinkToken = LinkToken

@@ -1,6 +1,9 @@
-MPStyle = exports? and @ or @MPStyle = {}
+{Token} = require './Token'
+{Style} = require './Style'
+{LinkTokenEnd} = require './LinkTokenEnd'
+{LinkToken} = require './LinkToken'
 
-class MPStyle.Parser
+class Parser
   constructor: (text) ->
     return @toHTML text
 
@@ -71,7 +74,6 @@ class MPStyle.Parser
           when 'z'
             style = (styleStack.length is 0 ? 0 : styleStack[styleStack.length - 1])
             if nextLinkToken?
-              console.log 'close link'
               endLink(true)
           when 'm'
             style = style & ~(Style.NARROW | Style.WIDE)
@@ -88,7 +90,7 @@ class MPStyle.Parser
             nextToken.text += '$'
           else
             #This must be a color code, verifying it
-            if /[a-f0-9]/i.test()
+            if /[a-f0-9]/i.test(c)
               color = c
         endText()
         isCode = false
@@ -129,8 +131,10 @@ class MPStyle.Parser
 
     if nextToken.text isnt ''
       tokens.push nextToken
+   
+    if nextLinkToken?
+      tokens.push new LinkTokenEnd
 
     return tokens
-
-
-console.log(MPStyle.Parser.toHTML('$lhttp://google.fr$zlol'))
+    
+exports.Parser = Parser

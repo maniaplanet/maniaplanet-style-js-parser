@@ -1,6 +1,8 @@
+{Style} = require './Style'
+{Color} = require './Color'
+
 class Token
   constructor: (@style = 0, @text = '') ->
-
 
   toHTML: ->
     styleStack = []
@@ -28,3 +30,5 @@ class Token
       return '<span style="' + styleStack.join(' ') + '">' + @text + '</span>'
     else
       return @text
+
+exports.Token = Token
