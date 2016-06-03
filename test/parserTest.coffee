@@ -11,8 +11,10 @@ describe 'Parser', ->
   it 'should ignore non color codes', ->
     expect(Parser.toHTML('$uhi there')).to.equal('hi there')
   it 'should parse $l with specified url', ->
-    expect(Parser.toHTML('$l[http://maniaplanet.com]maniaplanet.com$l')).to.equal('<a href="http://maniaplanet.com">maniaplanet.com</a>')
+    expect(Parser.toHTML('$l[http://maniaplanet.com]trackmania.com$l')).to.equal('<a href="http://maniaplanet.com">trackmania.com</a>')
   it 'should parse $l with no text', ->
     expect(Parser.toHTML('$lhttp://maniaplanet.com$l')).to.equal('<a href="http://maniaplanet.com">http://maniaplanet.com</a>')
   it 'should automatically adds a link end tag', ->
     expect(Parser.toHTML('$lhttp://maniaplanet.com')).to.equal('<a href="http://maniaplanet.com">http://maniaplanet.com</a>')
+  it 'should handle links with only code as text', ->
+    expect(Parser.toHTML('$l[www.clan-nuitblanche.org]$fff$l')).to.equal('')

@@ -28,7 +28,7 @@ class Parser
         nextToken = new Token style
         tokens.push new LinkTokenEnd
       else if tokens[tokens.length - 1] is nextLinkToken
-        delete(tokens[tokens.length - 1])
+        tokens.pop()
       else
         tokens.push new LinkTokenEnd
 
