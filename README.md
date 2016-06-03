@@ -2,9 +2,9 @@
 
 JavaScript port of ManiaLib's PHP style parser.
 
-It supports : `$i`, `$o`, `$s`, `$w`, `$m`, `$g`, `$n`, `$<`, `$>`, `$l` (for links like `$l[http://magnetik.org]magnetik$l`) and colors (`$f20` for instance). 
+It supports : `$i`, `$o`, `$s`, `$w`, `$m`, `$g`, `$n`, `$<`, `$>`, `$l` (for links like `$l[http://maniaplanet.org]maniaplanet$l`) and colors (`$f20` for instance). 
 
-Live demo : http://magnetik.github.com/maniaplanet-style-js-parser/
+Live demo : https://maniaplanet.github.io/maniaplanet-style-js-parser/
 
 ##Build
 
@@ -22,9 +22,9 @@ Just type `cake build` and the file `bin/mp-style-parser.js` will be generated. 
 
 In your javascript application just do `MPStyle.Parser.toHTML('$o foo $i bar');`
 
-In web projects : `<script src="http://magnetik.github.com/maniaplanet-style-js-parser/bin/mp-style-parser.js"></script>`
+In web projects : `<script src="https://maniaplanet.github.io/maniaplanet-style-js-parser/bin/mp-style-parser.js"></script>`
 
 ##License
 
-Licensed under the GNU Lesser General Public License Version 3 (LGPLV3), copyright Baptiste Lafontaine 2012.
+Licensed under the GNU Lesser General Public License Version 3 (LGPLV3
 

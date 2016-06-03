@@ -1,11 +1,11 @@
 {
   "name": "maniaplanet-style-js-parser",
   "version": "0.0.2",
-  "author": "Baptiste Lafontaine <baptiste@magnetik.org>",
+  "author": "Baptiste Lafontaine <baptiste@nadeo.com>",
   "description": "ManiaPlanet style parser",
   "repository": {
     "type": "git",
-    "url": "https://github.com/magnetik/maniaplanet-style-js-parser.git"
+    "url": "https://github.com/maniaplanet/maniaplanet-style-js-parser.git"
   },
   "keywords": [
     "maniaplanet",
@@ -19,6 +19,6 @@
   },
   "license": "LGPL 3",
   "engines": {
-    "node": ">=0.8"
+    "node": ">=4.4"
   }
 }
