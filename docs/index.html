@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Maniaplanet-style-js-parser by magnetik</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="bin/mp-style-parser.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Maniaplanet-style-js-parser</h1>
+        <p>CoffeeScript (JavaScript) maniaplanet style parser</p>
+
+        <p class="view"><a href="https://github.com/maniaplanet/maniaplanet-style-js-parser">View the Project on GitHub <small>maniaplanet/maniaplanet-style-js-parser</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/maniaplanet/maniaplanet-style-js-parser/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/maniaplanet/maniaplanet-style-js-parser/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/maniaplanet/maniaplanet-style-js-parser">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>ManiaPlanet Style parser</h1>
+
+<p>JavaScript port of ManiaLib's PHP style parser.</p>
+
+<p>It supports : <code>$i</code>, <code>$o</code>, <code>$s</code>, <code>$w</code>, <code>$m</code>, <code>$g</code>, <code>$n</code>, <code>$&lt;</code>, <code>$&gt;</code>, <code>$l</code> (for links like <code>$l[http://maniaplanet.org]maniaplanet$l</code>) and colors (<code>$f20</code> for instance). </p>
+
+<div>For instance : <input style="width: 100%" id="input" type="input" value="$f20Some red text,$z$o a little bold, $z$l[http://maniaplanet.org]and a link$l"/><br />will be transformed into:<br /> <div style="width: 100%; border-style:solid; padding:2px; border-width:1px;" id="result"></div></div>
+
+<script type="text/javascript">
+function transform() {
+	$('#result').html(MPStyle.Parser.toHTML($('#input').val()));
+}
+$(function() {
+	transform();
+	$('#input').change(function() { transform(); });
+	$('#input').keyup(function() { transform(); });
+});
+
+</script>
+
+<h2>Build</h2>
+
+<h3>Installation</h3>
+
+<p>Please check the readme on the <a href="https://github.com/maniaplanet/maniaplanet-style-js-parser#maniaplanet-style-parser">project's home on github</a>.</p>
+
+<h2>Usage</h2>
+
+<p>In you web applications, include the script via : <code>&lt;script src="http://maniaplanet.github.io/maniaplanet-style-js-parser/bin/mp-style-parser.js"&gt;&lt;/script&gt;</code></p>
+<p>Then you can use it by doing : <code>MPStyle.Parser.toHTML('$o foo $i bar');</code></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/maniaplanet">maniaplanet</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
