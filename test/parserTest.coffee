@@ -18,3 +18,7 @@ describe 'Parser', ->
     expect(Parser.toHTML('$lhttp://maniaplanet.com')).to.equal('<a href="http://maniaplanet.com">http://maniaplanet.com</a>')
   it 'should handle links with only code as text', ->
     expect(Parser.toHTML('$l[www.clan-nuitblanche.org]$fff$l')).to.equal('')
+  it 'should add http protocol to external links', ->
+    expect(Parser.toHTML('$l[maniaplanet.com]maniaplanet$l')).to.equal('<a href="http://maniaplanet.com">maniaplanet</a>')
+  it 'should add maniaplanet protocol to internal links', ->
+    expect(Parser.toHTML('$h[maniaflash]ManiaFlash$h')).to.equal('<a href="maniaplanet://#manialink=maniaflash">ManiaFlash</a>')

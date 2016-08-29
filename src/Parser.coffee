@@ -65,7 +65,7 @@ class Parser
               endLink()
             else
               endText true
-              nextLinkToken = new LinkToken
+              nextLinkToken = new LinkToken (if tok is "h" then true else false)
               tokens.push nextLinkToken
               isQuickLink = true
               isPrettyLink = true
