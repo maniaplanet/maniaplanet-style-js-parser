@@ -1,7 +1,7 @@
-{Token} = require './Token'
-{Style} = require './Style'
-{LinkTokenEnd} = require './LinkTokenEnd'
-{LinkToken} = require './LinkToken'
+{Token} = require './Token.coffee'
+{Style} = require './Style.coffee'
+{LinkTokenEnd} = require './LinkTokenEnd.coffee'
+{LinkToken} = require './LinkToken.coffee'
 
 class Parser
   constructor: (text) ->

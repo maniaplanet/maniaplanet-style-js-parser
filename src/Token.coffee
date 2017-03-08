@@ -1,5 +1,5 @@
-{Style} = require './Style'
-{Color} = require './Color'
+{Style} = require './Style.coffee'
+{Color} = require './Color.coffee'
 
 class Token
   constructor: (@style = 0, @text = '') ->

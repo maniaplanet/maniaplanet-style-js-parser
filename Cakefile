@@ -5,16 +5,12 @@ coffeeify  = require 'coffeeify'
 
 # Runs browserify
 execute = ->
-  # equal of command line $ "browserify --debug -t coffeeify ./src/main.coffee > bundle.js "
-  b = browserify()
-  b.add './src/main.coffee'
-  b.transform coffeeify
-  b.bundle
-    debug: true
-    transform: coffeeify
-  , (err, result) ->
+  # equal of command line $ "browserify --debug -t coffeeify ./src/Parser.coffee > bundle.js "
+  b = browserify(debug: true, transform: coffeeify)
+  b.add './src/BrowserModule.coffee'
+  b.bundle (err, result) ->
     if not err
-      fs.writeFile "example/bundle.js", result, (err) ->
+      fs.writeFile "docs/bin/mp-style-parser.js", result, (err) ->
         if not err
           console.log "✔ browserify complete"
         else
