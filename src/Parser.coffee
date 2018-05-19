@@ -103,12 +103,25 @@ class Parser
 
       #If we had detected a color code after a code start
       else if color?
-        color += c.replace(/[^a-f0-9]/gi, '0');
-        if color.length is 3
+        endColor = false
+        addChar = false
+
+        if /[a-f0-9]/i.test(c)
+          color += c.replace(/[^a-f0-9]/gi, '0')
+          endColor = color.length is 3
+        else
+          color += '0' for i in [0 ... 3 - color.length]
+          endColor = true
+          addChar = true
+
+        if endColor
           style = style & ~0xfff;
           style = style | Style.COLORED | (parseInt(color, 16) & 0xfff)
           endText() #force end string
           color = null
+
+          if addChar
+          	nextToken.text += c
 
       else if isQuickLink and isPrettyLink
         if c is '['
