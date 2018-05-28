@@ -22,3 +22,7 @@ describe 'Parser', ->
     expect(Parser.toHTML('$l[maniaplanet.com]maniaplanet$l')).to.equal('<a href="http://maniaplanet.com">maniaplanet</a>')
   it 'should add maniaplanet protocol to internal links', ->
     expect(Parser.toHTML('$h[maniaflash]ManiaFlash$h')).to.equal('<a href="maniaplanet://#manialink=maniaflash">ManiaFlash</a>')
+  it 'should handle color codes', ->
+    expect(Parser.toHTML('$f00Red')).to.equal('<span style="color: #ff0000;">Red</span>')
+  it 'should handle incomplete color codes', ->
+    expect(Parser.toHTML('$fRed')).to.equal('<span style="color: #ff0000;">Red</span>')
