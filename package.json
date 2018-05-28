@@ -1,31 +1,30 @@
 {
-  "name": "maniaplanet-style-js-parser",
-  "version": "0.2.0",
-  "author": "Baptiste Lafontaine <baptiste@nadeo.com>",
-  "description": "ManiaPlanet style parser",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/maniaplanet/maniaplanet-style-js-parser.git"
-  },
-  "keywords": [
-    "maniaplanet",
-    "parser",
-    "style"
-  ],
-  "dependencies" : {
-  },
-  "devDependencies": {
-    "coffee-script"    :  "~1.7",
-    "mocha"     :  "~2.5",
-    "chai"      :  "~3.5",
-    "browserify":  "~13.0",
-    "coffeeify" :  "~2.0"
-  },
-  "license": "LGPL-3.0",
-  "engines": {
-    "node": ">=4.4"
-  },
-  "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register"
-  }
+	"name": "maniaplanet-style-js-parser",
+	"version": "0.2.0",
+	"author": "Baptiste Lafontaine <baptiste@nadeo.com>",
+	"description": "Maniaplanet style parser",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/maniaplanet/maniaplanet-style-js-parser.git"
+	},
+	"keywords": [
+		"maniaplanet",
+		"parser",
+		"style"
+	],
+	"dependencies": {},
+	"devDependencies": {
+		"coffeescript": "~1.7",
+		"mocha": "~2.5",
+		"chai": "~3.5",
+		"browserify": "~13.0",
+		"coffeeify": "~2.0"
+	},
+	"license": "LGPL-3.0",
+	"engines": {
+		"node": ">=8.11"
+	},
+	"scripts": {
+		"test": "mocha --compilers coffee:coffeescript/register"
+	}
 }
