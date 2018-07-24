@@ -5,8 +5,8 @@ coffeeify  = require 'coffeeify'
 
 # Runs browserify
 execute = ->
-  # equal of command line $ "browserify --debug -t coffeeify ./src/Parser.coffee > bundle.js "
-  b = browserify(debug: true, transform: coffeeify)
+  # equal of command line $ "browserify  -t coffeeify ./src/Parser.coffee > bundle.js "
+  b = browserify(debug: false, transform: coffeeify)
   b.add './src/BrowserModule.coffee'
   b.bundle (err, result) ->
     if not err
