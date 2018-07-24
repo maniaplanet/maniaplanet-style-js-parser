@@ -32,5 +32,5 @@ You can run test by doing: `npm test`
 
 ## License
 
-Licensed under the GNU Lesser General Public License Version 3 (LGPLV3
+Licensed under the GNU Lesser General Public License Version 3 (LGPLV3)
 
