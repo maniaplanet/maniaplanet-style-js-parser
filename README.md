@@ -18,7 +18,7 @@ As compiled file are JavaScript, you can use it with any JavaScript interpreter.
 
 A CakeFile is used in order to generate all required files.
 
-Just type `cake browserify` and the file `bin/mp-style-parser.js` will be generated to be used in browsers.
+Just type `npm run build` and the file `bin/mp-style-parser.js` will be generated to be used in browsers.
 
 ## Usage
 
