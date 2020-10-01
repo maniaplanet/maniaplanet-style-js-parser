@@ -26,3 +26,9 @@ describe 'Parser', ->
     expect(Parser.toHTML('$f00Red')).to.equal('<span style="color: #ff0000;">Red</span>')
   it 'should handle incomplete color codes', ->
     expect(Parser.toHTML('$fRed')).to.equal('<span style="color: #ff0000;">Red</span>')
+  it 'should not add links with disableLinks', ->
+    expect(Parser.toHTML('$lmaniaplanet.com', disableLinks: true)).to.equal('maniaplanet.com')
+  it 'should not add links with specified url with disableLinks', ->
+    expect(Parser.toHTML('$l[maniaplanet.com]Maniaplanet', disableLinks: true)).to.equal('Maniaplanet')
+  it 'should be darker text with lightBackground', ->
+    expect(Parser.toHTML('$fffText', lightBackground: true)).to.equal('<span style="color: #444444;">Text</span>')
