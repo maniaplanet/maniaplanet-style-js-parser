@@ -50,19 +50,19 @@
 
 <script type="text/javascript">
 function makeOptions() {
-  return {
-    disableLinks: $('#disableLinks').prop('checked'),
-    lightBackground: $('#lightBackground').prop('checked'),
-  };
+	return {
+		disableLinks: $('#disableLinks').prop('checked'),
+		lightBackground: $('#lightBackground').prop('checked'),
+	};
 }
 function transform() {
-  var text = $('#input').val();
-  var options = makeOptions();
+	var text = $('#input').val();
+	var options = makeOptions();
 	$('#result').html(MPStyle.Parser.toHTML(text, options));
 }
 $(function() {
 	transform();
-  $('#disableLinks,#lightBackground').change(transform);
+	$('#disableLinks,#lightBackground').change(transform);
 	$('#input').change(transform);
 	$('#input').keyup(transform);
 });
