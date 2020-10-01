@@ -8,7 +8,7 @@ class Parser
   constructor: (text) ->
     return @toHTML text
 
-  @toHTML: (text, options) ->
+  @toHTML: (text, options = {}) ->
     @options =
       disableLinks: options.disableLinks
       lightBackground: options.lightBackground

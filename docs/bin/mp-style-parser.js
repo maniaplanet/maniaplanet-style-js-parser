@@ -138,6 +138,9 @@ Parser = (function() {
 
   Parser.toHTML = function(text, options) {
     var tokens;
+    if (options == null) {
+      options = {};
+    }
     this.options = {
       disableLinks: options.disableLinks,
       lightBackground: options.lightBackground
