@@ -7,7 +7,9 @@ class Parser
   constructor: (text) ->
     return @toHTML text
 
-  @toHTML: (text) ->
+  @toHTML: (text, options) ->
+    @options =
+      disableLinks: options.disableLinks
     return (tokens.toHTML() for tokens in @parse(text)).join('')
 
   @parse: (text) ->
@@ -65,8 +67,9 @@ class Parser
               endLink()
             else
               endText true
-              nextLinkToken = new LinkToken (if tok is "h" then true else false)
-              tokens.push nextLinkToken
+              nextLinkToken = new LinkToken(tok is "h")
+              if !@options.disableLinks
+                tokens.push nextLinkToken
               isQuickLink = true
               isPrettyLink = true
               linkLevel = styleStack.length
@@ -145,7 +148,7 @@ class Parser
     if nextToken.text isnt ''
       tokens.push nextToken
    
-    if nextLinkToken?
+    if nextLinkToken? and !@options.disableLinks
       tokens.push new LinkTokenEnd
 
     return tokens

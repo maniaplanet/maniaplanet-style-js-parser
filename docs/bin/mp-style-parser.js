@@ -118,8 +118,11 @@ Parser = (function() {
     return this.toHTML(text);
   }
 
-  Parser.toHTML = function(text) {
+  Parser.toHTML = function(text, options) {
     var tokens;
+    this.options = {
+      disableLinks: options.disableLinks
+    };
     return ((function() {
       var j, len, ref, results;
       ref = this.parse(text);
@@ -200,8 +203,10 @@ Parser = (function() {
               endLink();
             } else {
               endText(true);
-              nextLinkToken = new LinkToken((tok === "h" ? true : false));
-              tokens.push(nextLinkToken);
+              nextLinkToken = new LinkToken(tok === "h");
+              if (!this.options.disableLinks) {
+                tokens.push(nextLinkToken);
+              }
               isQuickLink = true;
               isPrettyLink = true;
               linkLevel = styleStack.length;
@@ -295,7 +300,7 @@ Parser = (function() {
     if (nextToken.text !== '') {
       tokens.push(nextToken);
     }
-    if (nextLinkToken != null) {
+    if ((nextLinkToken != null) && !this.options.disableLinks) {
       tokens.push(new LinkTokenEnd);
     }
     return tokens;
