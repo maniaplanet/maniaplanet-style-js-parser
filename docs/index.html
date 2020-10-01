@@ -45,23 +45,24 @@
 
   Additional options:<br />
   <label><input type="checkbox" id="disableLinks"> Disable links</label>
+  <label><input type="checkbox" id="lightBackground"> Optimize for light backgrounds</label>
 </div>
 
 <script type="text/javascript">
 function makeOptions() {
   return {
     disableLinks: $('#disableLinks').prop('checked'),
+    lightBackground: $('#lightBackground').prop('checked'),
   };
 }
 function transform() {
   var text = $('#input').val();
   var options = makeOptions();
-  console.log(options);
 	$('#result').html(MPStyle.Parser.toHTML(text, options));
 }
 $(function() {
 	transform();
-  $('#disableLinks').change(transform);
+  $('#disableLinks,#lightBackground').change(transform);
 	$('#input').change(transform);
 	$('#input').keyup(transform);
 });

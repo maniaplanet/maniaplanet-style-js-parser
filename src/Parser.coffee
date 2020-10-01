@@ -2,6 +2,7 @@
 {Style} = require './Style.coffee'
 {LinkTokenEnd} = require './LinkTokenEnd.coffee'
 {LinkToken} = require './LinkToken.coffee'
+{Color} = require './Color.coffee'
 
 class Parser
   constructor: (text) ->
@@ -10,6 +11,7 @@ class Parser
   @toHTML: (text, options) ->
     @options =
       disableLinks: options.disableLinks
+      lightBackground: options.lightBackground
     return (tokens.toHTML() for tokens in @parse(text)).join('')
 
   @parse: (text) ->
@@ -118,6 +120,8 @@ class Parser
           addChar = true
 
         if endColor
+          if @options.lightBackground
+            color = Color.invertLight(color)
           style = style & ~0xfff;
           style = style | Style.COLORED | (parseInt(color, 16) & 0xfff)
           endText() #force end string

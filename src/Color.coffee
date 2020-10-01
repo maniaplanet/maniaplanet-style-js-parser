@@ -16,4 +16,17 @@ class Color
   @contrastRatio: (rgb1, rgb2) ->
   	return (@rgbToLuminance(@hex2rgb(rgb1)) + 0.05) / (@rgbToLuminance(@hex2rgb(rgb2)) + 0.05)
 
+  @invertLight: (hex_color) ->
+    r = parseInt(hex_color[0], 16) * 17
+    g = parseInt(hex_color[1], 16) * 17
+    b = parseInt(hex_color[2], 16) * 17
+    grey = (r + g + b) / 3
+    if grey > 160
+      upper = 255 + 74
+      r = Math.min(15, Math.floor((upper - r) / 17))
+      g = Math.min(15, Math.floor((upper - g) / 17))
+      b = Math.min(15, Math.floor((upper - b) / 17))
+      return r.toString(16) + g.toString(16) + b.toString(16)
+    return hex_color
+
 exports.Color = Color
