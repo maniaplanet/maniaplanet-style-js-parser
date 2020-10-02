@@ -52,6 +52,22 @@ Color = (function() {
     return (this.rgbToLuminance(this.hex2rgb(rgb1)) + 0.05) / (this.rgbToLuminance(this.hex2rgb(rgb2)) + 0.05);
   };
 
+  Color.invertLight = function(hex_color) {
+    var b, g, grey, r, upper;
+    r = parseInt(hex_color[0], 16) * 17;
+    g = parseInt(hex_color[1], 16) * 17;
+    b = parseInt(hex_color[2], 16) * 17;
+    grey = (r + g + b) / 3;
+    if (grey > 160) {
+      upper = 255 + 74;
+      r = Math.min(15, Math.floor((upper - r) / 17));
+      g = Math.min(15, Math.floor((upper - g) / 17));
+      b = Math.min(15, Math.floor((upper - b) / 17));
+      return r.toString(16) + g.toString(16) + b.toString(16);
+    }
+    return hex_color;
+  };
+
   return Color;
 
 })();
@@ -103,7 +119,7 @@ exports.LinkTokenEnd = LinkTokenEnd;
 
 
 },{}],5:[function(require,module,exports){
-var LinkToken, LinkTokenEnd, Parser, Style, Token;
+var Color, LinkToken, LinkTokenEnd, Parser, Style, Token;
 
 Token = require('./Token.coffee').Token;
 
@@ -113,13 +129,22 @@ LinkTokenEnd = require('./LinkTokenEnd.coffee').LinkTokenEnd;
 
 LinkToken = require('./LinkToken.coffee').LinkToken;
 
+Color = require('./Color.coffee').Color;
+
 Parser = (function() {
   function Parser(text) {
     return this.toHTML(text);
   }
 
-  Parser.toHTML = function(text) {
+  Parser.toHTML = function(text, options) {
     var tokens;
+    if (options == null) {
+      options = {};
+    }
+    this.options = {
+      disableLinks: options.disableLinks,
+      lightBackground: options.lightBackground
+    };
     return ((function() {
       var j, len, ref, results;
       ref = this.parse(text);
@@ -200,8 +225,10 @@ Parser = (function() {
               endLink();
             } else {
               endText(true);
-              nextLinkToken = new LinkToken((tok === "h" ? true : false));
-              tokens.push(nextLinkToken);
+              nextLinkToken = new LinkToken(tok === "h");
+              if (!this.options.disableLinks) {
+                tokens.push(nextLinkToken);
+              }
               isQuickLink = true;
               isPrettyLink = true;
               linkLevel = styleStack.length;
@@ -263,6 +290,9 @@ Parser = (function() {
           addChar = true;
         }
         if (endColor) {
+          if (this.options.lightBackground) {
+            color = Color.invertLight(color);
+          }
           style = style & ~0xfff;
           style = style | Style.COLORED | (parseInt(color, 16) & 0xfff);
           endText();
@@ -295,7 +325,7 @@ Parser = (function() {
     if (nextToken.text !== '') {
       tokens.push(nextToken);
     }
-    if (nextLinkToken != null) {
+    if ((nextLinkToken != null) && !this.options.disableLinks) {
       tokens.push(new LinkTokenEnd);
     }
     return tokens;
@@ -308,7 +338,7 @@ Parser = (function() {
 exports.Parser = Parser;
 
 
-},{"./LinkToken.coffee":3,"./LinkTokenEnd.coffee":4,"./Style.coffee":6,"./Token.coffee":7}],6:[function(require,module,exports){
+},{"./Color.coffee":2,"./LinkToken.coffee":3,"./LinkTokenEnd.coffee":4,"./Style.coffee":6,"./Token.coffee":7}],6:[function(require,module,exports){
 var Style;
 
 Style = (function() {

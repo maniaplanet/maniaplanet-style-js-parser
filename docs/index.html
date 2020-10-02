@@ -34,18 +34,37 @@
 
 <p>JavaScript port of ManiaLib's PHP style parser.</p>
 
-<p>It supports : <code>$i</code>, <code>$o</code>, <code>$s</code>, <code>$w</code>, <code>$m</code>, <code>$g</code>, <code>$n</code>, <code>$&lt;</code>, <code>$&gt;</code>, <code>$l</code> (for links like <code>$l[http://maniaplanet.org]maniaplanet$l</code>) and colors (<code>$f20</code> for instance). </p>
+<p>It supports : <code>$i</code>, <code>$o</code>, <code>$s</code>, <code>$w</code>, <code>$m</code>, <code>$g</code>, <code>$n</code>, <code>$&lt;</code>, <code>$&gt;</code>, <code>$l</code> (for links like <code>$l[http://maniaplanet.com]maniaplanet$l</code>) and colors (<code>$f20</code> for instance). </p>
 
-<div>For instance : <input style="width: 100%" id="input" type="input" value="$f20Some red text,$z$o a little bold, $z$l[http://maniaplanet.org]and a link$l"/><br />will be transformed into:<br /> <div style="width: 100%; border-style:solid; padding:2px; border-width:1px;" id="result"></div></div>
+<div>
+  For instance:<br />
+  <input style="width: 100%" id="input" type="input" value="$f20Some red text,$z$o a little bold, $z$l[http://maniaplanet.com]and a link$l"/><br />
+
+  Will be transformed into:<br />
+  <div style="width: 100%; border-style:solid; padding:2px; border-width:1px;" id="result"></div>
+
+  Additional options:<br />
+  <label><input type="checkbox" id="disableLinks"> Disable links</label>
+  <label><input type="checkbox" id="lightBackground"> Optimize for light backgrounds</label>
+</div>
 
 <script type="text/javascript">
+function makeOptions() {
+	return {
+		disableLinks: $('#disableLinks').prop('checked'),
+		lightBackground: $('#lightBackground').prop('checked'),
+	};
+}
 function transform() {
-	$('#result').html(MPStyle.Parser.toHTML($('#input').val()));
+	var text = $('#input').val();
+	var options = makeOptions();
+	$('#result').html(MPStyle.Parser.toHTML(text, options));
 }
 $(function() {
 	transform();
-	$('#input').change(function() { transform(); });
-	$('#input').keyup(function() { transform(); });
+	$('#disableLinks,#lightBackground').change(transform);
+	$('#input').change(transform);
+	$('#input').keyup(transform);
 });
 
 </script>
