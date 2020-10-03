@@ -14,14 +14,18 @@ describe 'Parser', ->
     expect(Parser.toHTML('$l[http://maniaplanet.com]trackmania.com$l')).to.equal('<a href="http://maniaplanet.com">trackmania.com</a>')
   it 'should parse $l with no text', ->
     expect(Parser.toHTML('$lhttp://maniaplanet.com$l')).to.equal('<a href="http://maniaplanet.com">http://maniaplanet.com</a>')
-  it 'should automatically adds a link end tag', ->
+  it 'should automatically add a link end tag', ->
     expect(Parser.toHTML('$lhttp://maniaplanet.com')).to.equal('<a href="http://maniaplanet.com">http://maniaplanet.com</a>')
+  it 'should make a link to open in external window with externalLinks', ->
+    expect(Parser.toHTML('$l[http://maniaplanet.com]trackmania.com$l', externalLinks: true)).to.equal('<a href="http://maniaplanet.com" target="_blank" rel="noopener noreferrer">trackmania.com</a>')
   it 'should handle links with only code as text', ->
     expect(Parser.toHTML('$l[www.clan-nuitblanche.org]$fff$l')).to.equal('')
   it 'should add http protocol to external links', ->
     expect(Parser.toHTML('$l[maniaplanet.com]maniaplanet$l')).to.equal('<a href="http://maniaplanet.com">maniaplanet</a>')
   it 'should add maniaplanet protocol to internal links', ->
     expect(Parser.toHTML('$h[maniaflash]ManiaFlash$h')).to.equal('<a href="maniaplanet://#manialink=maniaflash">ManiaFlash</a>')
+  it 'should not open manialink in external window with externalLinks', ->
+    expect(Parser.toHTML('$h[maniaflash]ManiaFlash$h', externalLinks: true)).to.equal('<a href="maniaplanet://#manialink=maniaflash">ManiaFlash</a>')
   it 'should handle color codes', ->
     expect(Parser.toHTML('$f00Red')).to.equal('<span style="color: #ff0000;">Red</span>')
   it 'should handle incomplete color codes', ->
