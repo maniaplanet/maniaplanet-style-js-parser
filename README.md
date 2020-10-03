@@ -22,9 +22,19 @@ Just type `npm run build` and the file `bin/mp-style-parser.js` will be generate
 
 ## Usage
 
-In your javascript application just do `MPStyle.Parser.toHTML('$o foo $i bar');`
+In you web applications, include the script via: `<script src="https://maniaplanet.github.io/maniaplanet-style-js-parser/bin/mp-style-parser.js"></script>`
 
-In web projects : `<script src="https://maniaplanet.github.io/maniaplanet-style-js-parser/bin/mp-style-parser.js"></script>`
+Then you can use it by doing: `MPStyle.Parser.toHTML('$o foo $i bar');`
+
+You can add options by passing an object to the `toHTML` function. Here's a complete example of all possible options and their default values:
+
+```js
+var html = MPStyle.Parser.toHTML(text, {
+  disableLinks: false,
+  externalLinks: false,
+  lightBackground: false,
+});
+```
 
 ## Tests
 

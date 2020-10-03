@@ -44,14 +44,16 @@
   <div style="width: 100%; border-style:solid; padding:2px; border-width:1px;" id="result"></div>
 
   Additional options:<br />
-  <label><input type="checkbox" id="disableLinks"> Disable links</label>
-  <label><input type="checkbox" id="lightBackground"> Optimize for light backgrounds</label>
+  <label><input type="checkbox" id="disableLinks"> Disable links</label><br>
+  <label><input type="checkbox" id="externalLinks"> Links open in external window</label><br>
+  <label><input type="checkbox" id="lightBackground"> Optimize for light backgrounds</label><br>
 </div>
 
 <script type="text/javascript">
 function makeOptions() {
 	return {
 		disableLinks: $('#disableLinks').prop('checked'),
+    externalLinks: $('#externalLinks').prop('checked'),
 		lightBackground: $('#lightBackground').prop('checked'),
 	};
 }
@@ -62,7 +64,7 @@ function transform() {
 }
 $(function() {
 	transform();
-	$('#disableLinks,#lightBackground').change(transform);
+	$('#disableLinks,#externalLinks,#lightBackground').change(transform);
 	$('#input').change(transform);
 	$('#input').keyup(transform);
 });
@@ -77,8 +79,16 @@ $(function() {
 
 <h2>Usage</h2>
 
-<p>In you web applications, include the script via : <code>&lt;script src="http://maniaplanet.github.io/maniaplanet-style-js-parser/bin/mp-style-parser.js"&gt;&lt;/script&gt;</code></p>
-<p>Then you can use it by doing : <code>MPStyle.Parser.toHTML('$o foo $i bar');</code></p>
+<p>In you web applications, include the script via: <code>&lt;script src="http://maniaplanet.github.io/maniaplanet-style-js-parser/bin/mp-style-parser.js"&gt;&lt;/script&gt;</code></p>
+<p>Then you can use it by doing: <code>MPStyle.Parser.toHTML('$o foo $i bar');</code></p>
+<p>You can add options by passing an object to the <code>toHTML</code> function. Here's a complete example of all possible options and their default values:</p>
+<pre>
+var html = MPStyle.Parser.toHTML(text, {
+  disableLinks: false,
+  externalLinks: false,
+  lightBackground: false,
+});
+</pre>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/maniaplanet">maniaplanet</a></p>
