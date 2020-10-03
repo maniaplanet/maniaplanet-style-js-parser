@@ -79,19 +79,26 @@ exports.Color = Color;
 var LinkToken;
 
 LinkToken = (function() {
-  function LinkToken(manialink, link) {
+  function LinkToken(manialink) {
     this.manialink = manialink != null ? manialink : false;
-    this.link = link != null ? link : "";
+    this.link = "";
+    this.external = false;
   }
 
   LinkToken.prototype.toHTML = function() {
+    var ret;
     if (this.manialink && !/^maniaplanet:/i.test(this.link)) {
       this.link = "maniaplanet://#manialink=" + this.link;
     }
     if (!this.manialink && !/^http:/i.test(this.link)) {
       this.link = "http://" + this.link;
     }
-    return '<a href="' + this.link + '">';
+    ret = '<a href="' + this.link + '"';
+    if (this.external && !this.manialink) {
+      ret += ' target="_blank" rel="noopener noreferrer"';
+    }
+    ret += ">";
+    return ret;
   };
 
   return LinkToken;
@@ -143,6 +150,7 @@ Parser = (function() {
     }
     this.options = {
       disableLinks: options.disableLinks,
+      externalLinks: options.externalLinks,
       lightBackground: options.lightBackground
     };
     return ((function() {
@@ -226,6 +234,7 @@ Parser = (function() {
             } else {
               endText(true);
               nextLinkToken = new LinkToken(tok === "h");
+              nextLinkToken.external = this.options.externalLinks;
               if (!this.options.disableLinks) {
                 tokens.push(nextLinkToken);
               }
