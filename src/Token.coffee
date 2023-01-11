@@ -6,6 +6,8 @@ class Token
 
   toHTML: ->
     styleStack = []
+    @text = @text.replace /[&<>'"]/g, (match) -> '&#' + match.charCodeAt(0) + ';'
+    
     if @style
       if @style & Style.COLORED
         # Converting string to hex

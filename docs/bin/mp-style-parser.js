@@ -85,10 +85,11 @@ LinkToken = (function() {
   }
 
   LinkToken.prototype.toHTML = function() {
+    this.link = this.link.replace(/[&<>'"]+/g, encodeURIComponent);
     if (this.manialink && !/^maniaplanet:/i.test(this.link)) {
       this.link = "maniaplanet://#manialink=" + this.link;
     }
-    if (!this.manialink && !/^http:/i.test(this.link)) {
+    if (!this.manialink && !/^https?:/i.test(this.link)) {
       this.link = "http://" + this.link;
     }
     return '<a href="' + this.link + '">';
@@ -381,6 +382,9 @@ Token = (function() {
   Token.prototype.toHTML = function() {
     var color, styleStack;
     styleStack = [];
+    this.text = this.text.replace(/[&<>'"]/g, function(match) {
+      return '&#' + match.charCodeAt(0) + ';';
+    });
     if (this.style) {
       if (this.style & Style.COLORED) {
         color = parseInt(Color.rgb12to24(this.style & 0xfff), 10).toString(16);
