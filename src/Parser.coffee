@@ -11,6 +11,7 @@ class Parser
   @toHTML: (text, options = {}) ->
     @options =
       disableLinks: options.disableLinks
+      externalLinks: options.externalLinks
       lightBackground: options.lightBackground
     return (tokens.toHTML() for tokens in @parse(text)).join('')
 
@@ -70,6 +71,7 @@ class Parser
             else
               endText true
               nextLinkToken = new LinkToken(tok is "h")
+              nextLinkToken.external = @options.externalLinks
               if !@options.disableLinks
                 tokens.push nextLinkToken
               isQuickLink = true
