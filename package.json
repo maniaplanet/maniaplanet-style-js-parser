@@ -1,6 +1,6 @@
 {
 	"name": "maniaplanet-style-js-parser",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"author": "Baptiste Lafontaine <baptiste@nadeo.com>",
 	"description": "Maniaplanet style parser",
 	"repository": {
@@ -20,7 +20,7 @@
 		"browserify": "~13.0",
 		"coffeeify": "~2.0"
 	},
-	"license": "LGPL-3.0",
+	"license": "MIT",
 	"engines": {
 		"node": ">=8.11"
 	},
