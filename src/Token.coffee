@@ -1,11 +1,14 @@
 {Style} = require './Style.coffee'
 {Color} = require './Color.coffee'
+{Encode} = require './Encode.coffee'
 
 class Token
   constructor: (@style = 0, @text = '') ->
 
   toHTML: ->
     styleStack = []
+    @text = Encode.htmlEntities(@text)
+
     if @style
       if @style & Style.COLORED
         # Converting string to hex
